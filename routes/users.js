@@ -6,6 +6,8 @@ var crypto = require('crypto');
 var async = require('async');
 var nodemailer = require('nodemailer');
 var User = require('../models/user');
+var teacher = require('../models/teachers');
+var teach_flag = 0;
 //console.log(user);
 //Register
 router.get('/register' , function(req, res){
@@ -83,18 +85,35 @@ router.post('/register' , function(req, res){
 	}
 });
 
-passport.use(new LocalStrategy(
-  function(username, password,done) {
-   
-   User.getUserByUsername(username,function(err, user){
-   	if(err) throw err;
+passport.use(new LocalStrategy({
+  passReqToCallback: true
+  },
+  function(req,username, password,  done) {
+   //console.log('hi');
+   var checkbox = req.body.checkbox ;
+   var tmp_user = User;
+   //console.log(User);
+   if(checkbox)
+    {
+      console.log("logging as teacher");
+      tmp_user = teacher;
+      teach_flag = 1;
+    } 
+    else
+    {
+    	teach_flag = 0;
+    }
+   tmp_user.getUserByUsername(username,function(err, user){
+   	if(err) return done(err);
    	if(!user){
    		return done(null,false,{message: 'Unknown User'});
    	}
 
-   	User.comparePassword(password,user.password ,  function(err,isMatch) {
+   	tmp_user.comparePassword(password,user.password ,  function(err,isMatch) {
+   	    
    		if(err) throw err;
    		if(isMatch){
+   			console.log(user);
    			return done(null,user);
    		}
    		else
@@ -103,26 +122,51 @@ passport.use(new LocalStrategy(
    		}
    	});
    }); 
-  }));
+}));
 
 
 passport.serializeUser(function(user, done) {
+
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-  User.getUserById(id, function(err, user) {
-    done(err, user);
-  });
+  if(teach_flag)
+  {
+  	teacher.getUserById(id , function(err,user) {
+  		done(err , user)
+  	});
+  }
+  else
+  {
+    User.getUserById(id, function(err, user) {
+        done(err, user);
+  		
+    });	
+  }
+  
 });
-
-
-router.post('/login',
-  passport.authenticate('local',{successRedirect: '/', failureRedirect: '/users/login', failureFlash: true}),
-  function(req, res) {
-    
+		
+router.post('/login',passport.authenticate('local',{successRedirect: '/', failureRedirect: '/users/login', failureFlash: true})
+ ,function(req, res) {
     res.redirect('/');
   });
+/*
+router.post('/login',function(req, res) {
+	var teacher = req.body.checkbox;
+	if(teacher)
+	{
+	}
+	else
+	{
+		console.log('helo');
+    	console.log('helo');
+    	res.redirect('/');	
+	}
+	//console.log(teacher);
+    
+  });
+  */
 
 router.get('/logout' , function(req , res){
 	req.logout();

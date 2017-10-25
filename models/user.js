@@ -21,7 +21,9 @@ var UserSchema = mongoose.Schema({
     resetPasswordExpires: Date
 });
 
-var User  = module.exports = mongoose.model('student' , UserSchema);
+
+var User  = module.exports = mongoose.model('students' , UserSchema);
+
 //console.log(User);
 
 module.exports.createUser = function(newUser , callback)
