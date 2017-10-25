@@ -211,8 +211,8 @@ router.post('/forgotPassword', function(req, res, next) {
         service: 'Gmail',
         auth: {
 
-          user: '',
-          pass: ''
+          user: 'Hello',
+          pass: 'hello'
         }
       });
       var mailOptions = {
