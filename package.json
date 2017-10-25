@@ -1,0 +1,40 @@
+{
+  "name": "intellect",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
+  "author": "Narendra Pal",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.5.0",
+    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^2.4.3",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.1",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "^1.15.6",
+    "express-validator": "*",
+    "mongodb": "*",
+    "mongoose": "^4.12.1",
+    "morgan": "^1.9.0",
+    "nodemailer": "^4.3.0",
+    "passport": "^0.4.0",
+    "passport-http": "*",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7"
+  },
+  "engines": {
+    "node": "6.11.4"
+  }
+}
