@@ -19,7 +19,7 @@ var UserSchema = mongoose.Schema({
 	},
 	role: {
 		type: String,
-		default: "student"
+		default: "teacher"
 	},
     resetPasswordToken: String,
     resetPasswordExpires: Date

@@ -6,15 +6,12 @@ var teacherSchema = mongoose.Schema({
 	username: {type: String , index: true},
 	email: {type: String},
 	password: {type: String},
-<<<<<<< HEAD
-	courses : {type: Array  , "default": []}
-=======
+	courses : {type: Array  , "default": []},
 	role: {
 		type: String,
 		default: "teacher"
 	},
 	Courses : {type: Array  , "default": []}
->>>>>>> 80f3a344267c36210dfc77b56e3cf98775217534
 });
 
 var User  = module.exports = mongoose.model('teachers' , teacherSchema);
