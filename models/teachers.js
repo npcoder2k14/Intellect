@@ -6,6 +6,10 @@ var teacherSchema = mongoose.Schema({
 	username: {type: String , index: true},
 	email: {type: String},
 	password: {type: String},
+	role: {
+		type: String,
+		default: "teacher"
+	},
 	Courses : {type: Array  , "default": []}
 });
 
