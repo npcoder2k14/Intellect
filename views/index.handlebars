@@ -1,2 +1,9 @@
-<h2 class="page-header">Dashboard</h2>
-<p>Welcome to your Dashboard, {{user.name}}</p>
+{{#if errors}}
+	{{#each errors}}
+		<div class="alert alert-danger">{{msg}}</div>
+	{{/each}}
+{{/if}}
+<form method="post" action="/">
+  Course Name: <input type="text" name="cname">
+  <input type="submit" value="Submit">
+</form> 
