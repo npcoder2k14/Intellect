@@ -6,6 +6,7 @@ var teacherSchema = mongoose.Schema({
 	username: {type: String , index: true},
 	email: {type: String},
 	password: {type: String},
+	courses : {type: Array  , "default": []},
 	role: {
 		type: String,
 		default: "teacher"
@@ -32,4 +33,12 @@ module.exports.comparePassword = function(candidatePassword , hash, callback){
     if(err) throw err;
     callback(null , isMatch);
    });
+}
+
+module.exports.saveCourses = function(user, cname, callback) {
+	var query = {_id:user._id};
+	user.courses.push(cname);
+	User.findOneAndUpdate(query , user , {upsert:true},callback);
+	//User.update({_id:id}, {$push: {courses: cname}});
+	
 }
